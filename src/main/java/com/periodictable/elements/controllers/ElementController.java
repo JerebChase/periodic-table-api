@@ -1,23 +1,31 @@
 package com.periodictable.elements.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.periodictable.elements.models.Element;
+import com.periodictable.elements.services.DynamoDbService;
 
 @RestController
 public class ElementController {
-    @GetMapping("/elements")
-    public List<Element> greeting() {
-        return new ArrayList<Element>();
+    private DynamoDbService dbService;
+
+    @Autowired
+    ElementController(DynamoDbService dbService) {
+        this.dbService = dbService;
     }
 
     @GetMapping("/elements")
-    public Element greeting(@RequestParam(value = "atomicNumber", defaultValue = "1") Number atomicNumber) {
-        return new Element();
+    public List<Element> getElements() {
+        return dbService.getElements();
+    }
+
+    @GetMapping("/elements/{id}")
+    public Element getElement(@PathVariable int id) {
+        return dbService.getElementById(id);
     }
 }

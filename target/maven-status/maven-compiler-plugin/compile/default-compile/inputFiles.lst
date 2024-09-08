@@ -1,0 +1,5 @@
+/Users/jeremybrown/Documents/demos/periodic-table-api/src/main/java/com/periodictable/elements/ElementsApplication.java
+/Users/jeremybrown/Documents/demos/periodic-table-api/src/main/java/com/periodictable/elements/controllers/ElementController.java
+/Users/jeremybrown/Documents/demos/periodic-table-api/src/main/java/com/periodictable/elements/models/Element.java
+/Users/jeremybrown/Documents/demos/periodic-table-api/src/main/java/com/periodictable/elements/services/DynamoDbConfig.java
+/Users/jeremybrown/Documents/demos/periodic-table-api/src/main/java/com/periodictable/elements/services/DynamoDbService.java
