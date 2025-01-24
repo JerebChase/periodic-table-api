@@ -12,8 +12,8 @@ import com.periodictable.elements.models.Element;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
 import software.amazon.awssdk.enhanced.dynamodb.model.Page;
+import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
 
 @Service
 public class DynamoDbService {
@@ -27,7 +27,7 @@ public class DynamoDbService {
     }
 
     public List<Element> getElements() {
-        DynamoDbTable<Element> elementTable = dynamoDbEnhancedClient.table("Elements", elementTableSchema);
+        DynamoDbTable<Element> elementTable = dynamoDbEnhancedClient.table("periodic-table-dev", elementTableSchema);
         List<Element> elements = new ArrayList<>();
 
         // Scan the table and add each customer to the list
@@ -42,7 +42,7 @@ public class DynamoDbService {
     }
 
     public Element getElementById(int id) {
-        DynamoDbTable<Element> elementTable = dynamoDbEnhancedClient.table("Elements", elementTableSchema);
+        DynamoDbTable<Element> elementTable = dynamoDbEnhancedClient.table("periodic-table-dev", elementTableSchema);
         return elementTable.getItem(r -> r.key(k -> k.partitionValue(id)));
     }
 }
