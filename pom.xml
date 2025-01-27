@@ -27,6 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
+    <spring.profiles.active>local</spring.profiles.active>
 		<java.version>17</java.version>
 	</properties>
 	<dependencyManagement>
@@ -93,5 +94,31 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<!-- Profile for Local environment -->
+		<profile>
+			<id>local</id>
+			<properties>
+				<spring.profiles.active>local</spring.profiles.active>
+			</properties>
+		</profile>
+
+		<!-- Profile for Dev environment -->
+		<profile>
+			<id>dev</id>
+			<properties>
+				<spring.profiles.active>dev</spring.profiles.active>
+			</properties>
+		</profile>
+
+		<!-- Profile for Prod environment -->
+		<profile>
+			<id>prod</id>
+			<properties>
+				<spring.profiles.active>prod</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>
