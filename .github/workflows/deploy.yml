@@ -22,7 +22,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml -Dspring.profiles.active=dev
+      run: mvn -B package --file pom.xml
     - name: Set env to dev
       if: endsWith(github.ref, '/dev')
       run: |
@@ -40,6 +40,6 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v2
     - name: Build and Push docker image to ECR
       run: |
-        docker build -t periodic-table-api .
+        docker build -t periodic-table-api . 
         docker tag periodic-table-api:latest 105459448871.dkr.ecr.us-east-1.amazonaws.com/periodic-table-api-dev:latest
         docker push 105459448871.dkr.ecr.us-east-1.amazonaws.com/periodic-table-api-dev:latest
