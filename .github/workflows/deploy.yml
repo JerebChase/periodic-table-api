@@ -22,7 +22,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml -Ddev
+      run: mvn -B package --file pom.xml -Dspring.profiles.active=dev
     - name: Set env to dev
       if: endsWith(github.ref, '/dev')
       run: |
