@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.periodictable.elements.models.Element;
+import com.periodictable.elements.models.ElementDetails;
 import com.periodictable.elements.services.DynamoDbService;
 
 @RestController
 public class ElementController {
-    private DynamoDbService dbService;
+    private final DynamoDbService dbService;
 
     @Autowired
     ElementController(DynamoDbService dbService) {
@@ -25,7 +26,7 @@ public class ElementController {
     }
 
     @GetMapping("/elements/{id}")
-    public Element getElement(@PathVariable int id) {
+    public ElementDetails getElement(@PathVariable int id) {
         return dbService.getElementById(id);
     }
 }

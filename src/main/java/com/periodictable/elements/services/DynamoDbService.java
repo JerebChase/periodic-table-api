@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.periodictable.elements.models.Element;
+import com.periodictable.elements.models.ElementDetails;
 
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
@@ -19,11 +20,17 @@ import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
 public class DynamoDbService {
     private final DynamoDbEnhancedClient dynamoDbEnhancedClient;
     private final TableSchema<Element> elementTableSchema;
+    private final TableSchema<ElementDetails> elementDetailsTableSchema;
 
     @Autowired
-    public DynamoDbService(DynamoDbEnhancedClient dynamoDbEnhancedClient, TableSchema<Element> elementTableSchema) {
+    public DynamoDbService(
+      DynamoDbEnhancedClient dynamoDbEnhancedClient, 
+      TableSchema<Element> elementTableSchema,
+      TableSchema<ElementDetails> elementDetailsTableSchema
+    ) {
         this.dynamoDbEnhancedClient = dynamoDbEnhancedClient;
         this.elementTableSchema = elementTableSchema;
+        this.elementDetailsTableSchema = elementDetailsTableSchema;
     }
 
     public List<Element> getElements() {
@@ -41,8 +48,8 @@ public class DynamoDbService {
         return elements;
     }
 
-    public Element getElementById(int id) {
-        DynamoDbTable<Element> elementTable = dynamoDbEnhancedClient.table("periodic-table-dev", elementTableSchema);
+    public ElementDetails getElementById(int id) {
+        DynamoDbTable<ElementDetails> elementTable = dynamoDbEnhancedClient.table("periodic-table-dev", elementDetailsTableSchema);
         return elementTable.getItem(r -> r.key(k -> k.partitionValue(id)));
     }
 }
