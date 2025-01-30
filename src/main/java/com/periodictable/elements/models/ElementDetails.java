@@ -26,8 +26,8 @@ public class ElementDetails {
     public String mostStableCrystal;
     public String oxidationStates;
     public int period;
-    public String phase;
     public float specificHeatCapacity;
+    public String standardState;
     public String symbol;
     public String type;
     public int yearOfDiscovery;
@@ -213,13 +213,13 @@ public class ElementDetails {
         this.period = period;
     }
 
-    @DynamoDbAttribute("Phase")
-    public String getPhase() {
-        return phase;
+    @DynamoDbAttribute("StandardState")
+    public String getStandardState() {
+        return standardState;
     }
 
-    public void setPhase(String phase) {
-        this.phase = phase;
+    public void setStandardState(String standardState) {
+        this.standardState = standardState;
     }
 
     @DynamoDbAttribute("SpecificHeatCapacity")
