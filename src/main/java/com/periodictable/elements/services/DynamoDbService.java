@@ -53,7 +53,7 @@ public class DynamoDbService {
         DynamoDbTable<ElementDetails> elementTable = dynamoDbEnhancedClient.table("periodic-table-dev", elementDetailsTableSchema);
         var element = elementTable.getItem(r -> r.key(k -> k.partitionValue(id)));
         if (element == null) {
-            throw ResourceNotFoundException.builder().message("Element not found").build();
+            throw ResourceNotFoundException.builder().statusCode(404).message("Element not found").build();
         }
         return element;
     }
