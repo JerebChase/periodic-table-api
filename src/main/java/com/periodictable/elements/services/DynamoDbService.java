@@ -15,6 +15,7 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.model.Page;
 import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
+import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 
 @Service
 public class DynamoDbService {
@@ -48,8 +49,12 @@ public class DynamoDbService {
         return elements;
     }
 
-    public ElementDetails getElementById(int id) {
+    public ElementDetails getElementById(int id) throws ResourceNotFoundException {
         DynamoDbTable<ElementDetails> elementTable = dynamoDbEnhancedClient.table("periodic-table-dev", elementDetailsTableSchema);
-        return elementTable.getItem(r -> r.key(k -> k.partitionValue(id)));
+        var element = elementTable.getItem(r -> r.key(k -> k.partitionValue(id)));
+        if (element == null) {
+            throw ResourceNotFoundException.builder().message("Element not found").build();
+        }
+        return element;
     }
 }

@@ -17,16 +17,16 @@ public class ElementController {
 
     @Autowired
     ElementController(DynamoDbService dbService) {
-        this.dbService = dbService;
+      this.dbService = dbService;
     }
 
     @GetMapping("/elements")
     public List<Element> getElements() {
-        return dbService.getElements();
+      return dbService.getElements();
     }
 
     @GetMapping("/elements/{id}")
     public ElementDetails getElement(@PathVariable int id) {
-        return dbService.getElementById(id);
+      return dbService.getElementById(id);
     }
 }
