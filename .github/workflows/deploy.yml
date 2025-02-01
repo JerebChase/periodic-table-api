@@ -35,5 +35,5 @@ jobs:
         API_IMAGE: ${{ secrets.API_IMAGE }}
       run: |
         docker build -t periodic-table-api . 
-        docker tag periodic-table-api:latest $API_IMAGE
-        docker push $API_IMAGE
+        docker tag periodic-table-api:latest "$API_IMAGE"
+        docker push "$API_IMAGE"
