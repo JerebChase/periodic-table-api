@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.periodictable.elements.models.Element;
+import com.periodictable.elements.models.ElementDetails;
 
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -34,5 +35,10 @@ public class DynamoDbConfig {
         @Bean
         public TableSchema<Element> elementTableSchema() {
                 return TableSchema.fromBean(Element.class);
+        }
+
+        @Bean
+        public TableSchema<ElementDetails> elementDetailsTableSchema() {
+                return TableSchema.fromBean(ElementDetails.class);
         }
 }
