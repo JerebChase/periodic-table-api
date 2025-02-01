@@ -12,6 +12,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}
 
     steps:
     - uses: actions/checkout@v4
@@ -35,5 +36,5 @@ jobs:
         API_IMAGE: ${{ secrets.API_IMAGE }}
       run: |
         docker build -t periodic-table-api . 
-        docker tag periodic-table-api:latest "$API_IMAGE"
-        docker push "$API_IMAGE"
+        docker tag periodic-table-api:latest $API_IMAGE
+        docker push $API_IMAGE
