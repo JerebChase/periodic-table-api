@@ -35,11 +35,11 @@ jobs:
       uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-region: us-east-1
-        role-to-assume: arn:aws:iam::105459448871:role/GithubProviderRole
+        role-to-assume: $AWS_ACCESS_ROLE
     - name: Login to Amazon ECR
       uses: aws-actions/amazon-ecr-login@v2
-    - name: Build and Push docker image to ECR
-      run: |
-        docker build -t periodic-table-api . 
-        docker tag periodic-table-api:latest 105459448871.dkr.ecr.us-east-1.amazonaws.com/periodic-table-api-dev:latest
-        docker push 105459448871.dkr.ecr.us-east-1.amazonaws.com/periodic-table-api-dev:latest
+    # - name: Build and Push docker image to ECR
+    #   run: |
+    #     docker build -t periodic-table-api . 
+    #     docker tag periodic-table-api:latest 105459448871.dkr.ecr.us-east-1.amazonaws.com/periodic-table-api-dev:latest
+    #     docker push 105459448871.dkr.ecr.us-east-1.amazonaws.com/periodic-table-api-dev:latest
