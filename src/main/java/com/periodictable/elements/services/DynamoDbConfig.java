@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import com.periodictable.elements.models.Element;
 import com.periodictable.elements.models.ElementDetails;
 
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.regions.Region;
@@ -22,6 +23,7 @@ public class DynamoDbConfig {
         public DynamoDbClient dynamoDbClient() {
                 return DynamoDbClient.builder()
                                 .region(awsRegion)
+                                .credentialsProvider(DefaultCredentialsProvider.create())
                                 .build();
         }
 
