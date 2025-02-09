@@ -23,7 +23,9 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      env:
+          ENVIRONMENT: ${{ vars.ENVIRONMENT }}
+      run: mvn -B package --file pom.xml -Dspring.profiles.active=$ENVIRONMENT
     - name: Configure AWS credentials for Github Actions
       uses: aws-actions/configure-aws-credentials@v4
       with:
