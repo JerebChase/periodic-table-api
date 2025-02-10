@@ -3,6 +3,8 @@ package com.periodictable.elements.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,25 +26,17 @@ public class ElementController {
       this.dbService = dbService;
     }
 
-    @ApiResponse(
-        responseCode = "200",
-        description = "Successful response",
-        content = @Content(mediaType = "application/json", schema = @Schema(implementation = Element[].class))
-    )
-    @ApiResponse(responseCode = "500", description = "Internal server error")
-    @GetMapping("/elements")
+    @ApiResponse(responseCode = "200", description = "Successful response")
+    @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ProblemDetail.class)))
+    @GetMapping(value = "/elements", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Element> getElements() {
       return dbService.getElements();
     }
 
-    @ApiResponse(
-        responseCode = "200",
-        description = "Successful response",
-        content = @Content(mediaType = "application/json", schema = @Schema(implementation = ElementDetails.class))
-    )
-    @ApiResponse(responseCode = "404", description = "Element not found")
-    @ApiResponse(responseCode = "500", description = "Internal server error")
-    @GetMapping("/elements/{id}")
+    @ApiResponse(responseCode = "200", description = "Successful response")
+    @ApiResponse(responseCode = "404", description = "Element not found", content = @Content(schema = @Schema(implementation = ProblemDetail.class)))
+    @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ProblemDetail.class)))
+    @GetMapping(value = "/elements/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ElementDetails getElement(@PathVariable int id) {
       return dbService.getElementById(id);
     }

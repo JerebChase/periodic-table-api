@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.periodictable.elements.models.Element;
 import com.periodictable.elements.models.ElementDetails;
@@ -16,7 +18,6 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.model.Page;
 import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
-import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 
 @Service
 public class DynamoDbService {
@@ -53,11 +54,11 @@ public class DynamoDbService {
     return elements;
   }
 
-  public ElementDetails getElementById(int id) throws ResourceNotFoundException {
+  public ElementDetails getElementById(int id) {
     DynamoDbTable<ElementDetails> elementTable = dynamoDbEnhancedClient.table(table, elementDetailsTableSchema);
     var element = elementTable.getItem(r -> r.key(k -> k.partitionValue(id)));
     if (element == null) {
-      throw ResourceNotFoundException.builder().statusCode(404).message("Element not found").build();
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Element not found");
     }
     return element;
   }
